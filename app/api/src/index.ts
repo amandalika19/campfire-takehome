@@ -3,6 +3,8 @@ import { fileURLToPath } from 'node:url';
 import { loadLedger } from './ledger';
 import { buildIncomeStatement } from './statement';
 import type { Ledger } from '../../shared/src/types';
+import { DATA_FILE } from '../../shared/src/constants';
+
 
 const DEFAULT_START = '2026-01-01';
 const DEFAULT_END = '2026-03-31';
@@ -23,34 +25,48 @@ export function createApp(ledger: Ledger) {
 
   app.get('/income-statement', (req, res) => {
     const { start, end } = req.query;
-
-    // Use the default period only when neither date is provided.
+  
     if (start === undefined && end === undefined) {
-      return res.json(
-        buildIncomeStatement(ledger, DEFAULT_START, DEFAULT_END)
-      );
+      try {
+        return res.json(
+          buildIncomeStatement(ledger, DEFAULT_START, DEFAULT_END)
+        );
+      } catch (error) {
+        return res.status(500).json({
+          error: error instanceof Error
+            ? error.message
+            : 'Failed to generate income statement.',
+        });
+      }
     }
-
-    // Require both dates when a custom period is requested.
+  
     if (typeof start !== 'string' || typeof end !== 'string') {
       return res.status(400).json({
         error: 'Both start and end dates are required.',
       });
     }
-
+  
     if (!isValidDate(start) || !isValidDate(end)) {
       return res.status(400).json({
         error: 'Dates must be real dates in YYYY-MM-DD format.',
       });
     }
-
+  
     if (start > end) {
       return res.status(400).json({
         error: 'Start date must be before or equal to the end date.',
       });
     }
-
-    return res.json(buildIncomeStatement(ledger, start, end));
+  
+    try {
+      return res.json(buildIncomeStatement(ledger, start, end));
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error
+          ? error.message
+          : 'Failed to generate income statement.',
+      });
+    }
   });
 
   return app;
@@ -58,7 +74,7 @@ export function createApp(ledger: Ledger) {
 
 if (!process.env.VITEST) {
   const path = fileURLToPath(
-    new URL('../../../data/ledger.json', import.meta.url)
+    new URL(`../../${DATA_FILE}`, import.meta.url)
   );
   const port = Number(process.env.PORT ?? 3001);
 

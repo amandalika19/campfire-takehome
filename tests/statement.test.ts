@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { loadLedger } from '../app/api/src/ledger';
 import { buildIncomeStatement } from '../app/api/src/statement';
+import { DATA_FILE } from '../app/shared/src/constants';
+
 
 const ledger = loadLedger(
-  fileURLToPath(new URL('../data/ledger.json', import.meta.url))
+  fileURLToPath(new URL(DATA_FILE, import.meta.url))
 );
 
 // Helper: Find an account's amount within a statement section.

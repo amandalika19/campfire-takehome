@@ -5,7 +5,8 @@
     "scripts": {
       "dev:api": "tsx watch app/api/src/index.ts",
       "dev:ui": "vite --config vite.config.ts app/ui",
-      "test": "vitest run"
+      "test": "source ~/.nvm/nvm.sh && nvm use && vitest run",
+      "test-python": "python3 tests/scriptLedgerTest.py"
     },
     "dependencies": {
       "express": "^5.3.0",

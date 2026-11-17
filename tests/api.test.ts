@@ -3,9 +3,10 @@ import request from 'supertest';
 import { fileURLToPath } from 'node:url';
 import { createApp } from '../app/api/src/index';
 import { loadLedger } from '../app/api/src/ledger';
+import {DATA_FILE} from '../app/shared/src/constants';
 
 const ledger = loadLedger(
-  fileURLToPath(new URL('../data/ledger.json', import.meta.url))
+  fileURLToPath(new URL(DATA_FILE, import.meta.url))
 );
 
 const app = createApp(ledger);
