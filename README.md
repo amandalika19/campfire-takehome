@@ -29,7 +29,7 @@ node -v  # should print v26.13.0
 # Install dependencies
 npm install
 ```
-If you don't have NVM installed, install Node.js 26.13.0 manually before running npm install.
+If you don't have NVM installed, install Node.js 26.13.0 manually before running npm install and update the package.json commmands
 
 ## Backend
  

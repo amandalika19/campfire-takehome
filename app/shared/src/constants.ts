@@ -1,1 +1,1 @@
-export const DATA_FILE = '../data/invalidLedger.json';
+export const DATA_FILE = '../data/ledger.json';
