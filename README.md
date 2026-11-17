@@ -49,11 +49,16 @@ npm run dev:ui # http://localhost:5173
 npm test             # all tests
 ```
  
-Optional independent check (needs Python 3, no packages):
+Independent check (needs Python 3 - no packages):
  
 ```bash
 python3 scripts/check.py 2026-01-01 2026-03-31
 ```
  
-It recomputes the statement from `data/ledger.json` with Python's `Decimal`, using none of the app's code. The net income it prints should match the page.
+It recomputes the statement from `data/ledger.json` using none of the app's code. The net income it prints should match the page.
+
+To test just the API Response
+```bash
+curl "http://localhost:3001/income-statement?start=2026-01-01&end=2026-03-31"
+```
  
