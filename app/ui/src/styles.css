@@ -1,0 +1,9 @@
+body { font-family: Georgia, serif; }
+main { max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+label { margin-right: 1rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.1rem 0; }
+.amount { text-align: right; }
+.line td:first-child { padding-left: 1rem; }
+.total td, .net-income td { border-top: 1px solid; font-weight: bold; }
+.error { color: #b00; }
